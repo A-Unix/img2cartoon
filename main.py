@@ -22,7 +22,7 @@ def cartoonize_image(image_path):
     edges = cv2.adaptiveThreshold(cartoon, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
     
     # Combine the cartoon image and edge mask
-    cartoon = cv2.bitwise_and(cartoon, cartoon, mask=edges)
+    cartoon = cv2.bitwise_and(cartoon, mask=edges)
     return cartoon
 
 def create_cartoon_video(image_path, output_path, duration_minutes=1, fps=30, song_path=None):
