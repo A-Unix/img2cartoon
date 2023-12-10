@@ -23,16 +23,20 @@ def cartoonize_image(image_path):
 
     return cartoon
 
-def create_cartoon_video(image_path, output_path, duration=5, fps=24):
-    # Create a temporary directory to store individual frames
-    temp_dir = Path("temp_frames")
-    temp_dir.mkdir(exist_ok=True)
+def create_cartoon_video(image_path, output_path, duration_minutes=1, fps=24):
+    # Calculate the total number of frames required
+    duration_seconds = duration_minutes * 60
+    total_frames = int(fps * duration_seconds)
 
     # Cartoonize the input image
     cartoon_image = cartoonize_image(image_path)
 
+    # Create a temporary directory to store individual frames
+    temp_dir = Path("temp_frames")
+    temp_dir.mkdir(exist_ok=True)
+
     # Write cartoon image to temp frames
-    for i in range(fps * duration):
+    for i in range(total_frames):
         frame_name = temp_dir / f"frame_{i:03d}.png"
         cv2.imwrite(str(frame_name), cartoon_image)
 
@@ -40,7 +44,7 @@ def create_cartoon_video(image_path, output_path, duration=5, fps=24):
     video_writer = imageio.get_writer(output_path, fps=fps)
 
     # Add frames to the video
-    for i in range(fps * duration):
+    for i in range(total_frames):
         frame_name = temp_dir / f"frame_{i:03d}.png"
         video_writer.append_data(imageio.imread(frame_name))
 
@@ -55,8 +59,14 @@ def create_cartoon_video(image_path, output_path, duration=5, fps=24):
     temp_dir.rmdir()
 
 if __name__ == "__main__":
-    image_path = "input_image.jpg"
+    # Get input image path from user
+    image_path = input("Enter the path of the input image: ")
+
+    # Get desired video duration from user
+    duration_minutes = float(input("Enter the desired length of the video in minutes: "))
+
+    # Output video path
     output_path = "cartoon_video.mp4"
 
-    create_cartoon_video(image_path, output_path)
+    create_cartoon_video(image_path, output_path, duration_minutes)
     print(f"Cartoon video created: {output_path}")
