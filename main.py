@@ -16,13 +16,13 @@ def cartoonize_image(image_path):
         raise FileNotFoundError(f"Could not open or read image at {image_path}")
     
     # Convert the image to grayscale
-    # gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # Use the original color image
     cartoon = img.copy()
     
     # Apply bilateral filter to reduce noise and smooth the image while preserving edges
-    # cartoon = cv2.bilateralFilter(gray, d=9, sigmaColor=300, sigmaSpace=300)
+    cartoon = cv2.bilateralFilter(gray, d=9, sigmaColor=300, sigmaSpace=300)
     
     # Create an edge mask using adaptive thresholding
     edges = cv2.adaptiveThreshold(cartoon, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
