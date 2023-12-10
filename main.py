@@ -19,7 +19,7 @@ def cartoonize_image(image_path):
     cartoon = img.copy()
     
    # Convert the image to grayscale for edge detection
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GREEN)
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
 
     # Apply bilateral filter to reduce noise and smooth the image while preserving edges
     cartoon = cv2.bilateralFilter(cartoon, d=9, sigmaColor=300, sigmaSpace=300)
