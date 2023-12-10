@@ -4,6 +4,7 @@ import cv2
 import numpy as np
 import imageio
 from pathlib import Path
+from moviepy.editor import VideoFileClip
 
 def cartoonize_image(image_path):
     # Read the input image
@@ -54,6 +55,13 @@ def create_cartoon_video(image_path, output_path, duration_minutes=1, fps=30):
     
     # Close the video writer
     video_writer.close()
+
+    # Embed the song into the video using moviepy
+    if song_path:
+        video_clip = VideoFileClip(output_path)
+        audio_clip = VideoFileClip(song_path).audio
+        video_clip = video_clip.set_audio(audio_clip)
+        video_clip.write_videofile(output_path, codec='libx264', audio_codec='aac')
     
     # Remove temporary frames
     for frame in temp_dir.glob("*.png"):
@@ -70,7 +78,11 @@ if __name__ == "__main__":
     duration_minutes = float(input("Enter the desired length of the video in minutes: "))
     
     # Output video path
-    output_path = "cartoon_video.mp4"
-    
-    create_cartoon_video(image_path, output_path, duration_minutes)
+    output_path = input("Enter the path of the output video: ")
+
+    # Ask the user to input the path of the song (optional)
+    song_path = input("Enter the path of the song (leave it empty if no song): ")
+
+    create_cartoon_video(image_path, output_path, duration_minutes, song_path=song_path)
     print(f"Cartoon video created: {output_path}")
+
