@@ -15,16 +15,10 @@ def cartoonize_image(image_path):
     if img is None:
         raise FileNotFoundError(f"Could not open or read image at {image_path}")
     
-    # Convert the image to grayscale
-    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-
     # Use the original color image
     cartoon = img.copy()
     
-    # Apply bilateral filter to reduce noise and smooth the image while preserving edges
-    cartoon = cv2.bilateralFilter(gray, d=9, sigmaColor=300, sigmaSpace=300)
-    
-    # Create an edge mask using adaptive thresholding
+   # Create an edge mask using adaptive thresholding on the grayscale image
     edges = cv2.adaptiveThreshold(cartoon, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
     
     # Combine the cartoon image and edge mask
@@ -84,7 +78,7 @@ if __name__ == "__main__":
     output_path = input("Enter the path of the output video: ")
 
     # Ask the user to input the path of the song (optional)
-    song_path = input("Enter the path of the song (leave it empty if no song): ")
+    song_path = input("Enter the path of the song(leave it empty if no song): ")
 
     create_cartoon_video(image_path, output_path, duration_minutes, song_path=song_path)
     print(f"Cartoon video created: {output_path}")
