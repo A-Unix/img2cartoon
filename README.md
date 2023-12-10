@@ -1,5 +1,5 @@
 # img2cartoon
-A basic tool to convert any image into cartoon.
+A basic tool to convert any image into cartoon with embedding the song in video.
 
 # Installation Instructions
 
