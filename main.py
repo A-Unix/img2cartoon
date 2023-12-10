@@ -55,8 +55,8 @@ def create_cartoon_video(image_path, output_path, duration=5, fps=24):
     temp_dir.rmdir()
 
 if __name__ == "__main__":
-    input_image_path = "input_image.jpg"
-    output_video_path = "cartoon_video.mp4"
+    image_path = "input_image.jpg"
+    output_path = "cartoon_video.mp4"
 
-    create_cartoon_video(input_image_path, output_video_path)
-    print(f"Cartoon video created: {output_video_path}")
+    create_cartoon_video(image_path, output_path)
+    print(f"Cartoon video created: {output_path}")
