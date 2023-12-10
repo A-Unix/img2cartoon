@@ -22,7 +22,7 @@ def cartoonize_image(image_path):
     cartoon = img.copy()
     
     # Apply bilateral filter to reduce noise and smooth the image while preserving edges
-    cartoon = cv2.bilateralFilter(gray, d=9, sigmaColor=300, sigmaSpace=300)
+    # cartoon = cv2.bilateralFilter(gray, d=9, sigmaColor=300, sigmaSpace=300)
     
     # Create an edge mask using adaptive thresholding
     edges = cv2.adaptiveThreshold(cartoon, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
