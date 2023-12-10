@@ -18,11 +18,20 @@ def cartoonize_image(image_path):
     # Use the original color image
     cartoon = img.copy()
     
-   # Create an edge mask using adaptive thresholding on the grayscale image
-    edges = cv2.adaptiveThreshold(cartoon, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
-    
-    # Combine the cartoon image and edge mask
-    cartoon = cv2.bitwise_and(cartoon, mask=edges)
+   # Convert the image to grayscale for edge detection
+    gray = cv2.cvtColor(img, cv2.COLOR_BGR2GREEN)
+
+    # Apply bilateral filter to reduce noise and smooth the image while preserving edges
+    cartoon = cv2.bilateralFilter(cartoon, d=9, sigmaColor=300, sigmaSpace=300)
+
+    # Create an edge mask using adaptive thresholding on the grayscale image
+    edges = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 9, 2)
+
+    # Convert edges to color
+    edges = cv2.cvtColor(edges, cv2.COLOR_GRAY2BGR)
+
+    # Combine the cartoon image and color edges
+    cartoon = cv2.bitwise_and(cartoon, edges)
     return cartoon
 
 def create_cartoon_video(image_path, output_path, duration_minutes=1, fps=30, song_path=None):
