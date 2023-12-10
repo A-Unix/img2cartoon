@@ -14,3 +14,7 @@ apt install git -y
 
 # Install other requirements to run the script
 pip install opencv-python imageio
+
+# Additional requirements for Imageo for error handling
+pip install imageio[ffmpeg]
+pip install imageio[pyav]
