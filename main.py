@@ -28,7 +28,7 @@ def cartoonize_image(image_path):
     cartoon = cv2.bitwise_and(cartoon, cartoon, mask=edges)
     return cartoon
 
-def create_cartoon_video(image_path, output_path, duration_minutes=1, fps=30):
+def create_cartoon_video(image_path, output_path, duration_minutes=1, fps=30, song_path=None):
     # Calculate the total number of frames required
     duration_seconds = duration_minutes * 60
     total_frames = int(fps * duration_seconds)
