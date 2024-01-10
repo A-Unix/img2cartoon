@@ -5,7 +5,7 @@ A basic tool to convert any image into cartoon with embedding the song in video.
 
 ## Clone the repo
 ```bash
-git clone https://github.com/Atuls-git/img2cartoon.git
+git clone https://github.com/A-Unix/img2cartoon.git
 ```
 ## Move to cloned folder
 ```bash
